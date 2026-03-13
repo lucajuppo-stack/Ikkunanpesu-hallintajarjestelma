@@ -19,13 +19,17 @@ Asenna `flask`-kirjasto:
 
 ```bash
 $ pip install flask
+` ``` `
 
 Luo tietokannan
 
+```bash
 $ sqlite3 database.db < schema.sql
 
+` ``` `
 Voit käynnistää sovelluksen näin
 
+```bash
 $ flask run
 
 
