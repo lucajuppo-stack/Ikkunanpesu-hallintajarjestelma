@@ -12,3 +12,20 @@ Sovelluksen avulla ikkunanpesuyritys voi hallinnoida ovelta ovelle tapahtuvaa my
 * Sovelluksessa on käyttäjäsivut, jotka näyttävät myyjäkohtaisia tilastoja (esim. myytyjen pesujen määrä ja kokonaisarvo) sekä listan kyseisen käyttäjän lisäämistä kohteista.
 * Käyttäjä pystyy valitsemaan tilaukselle yhden tai useamman luokittelun (esim. kohdetyyppi: omakotitalo, rivitalo tai liiketila).
 * Käyttäjä pystyy päivittämään tilauksen tilaa työn edetessä: merkinnät työn suorittamisesta, laskun lähettämisestä ja maksun vastaanottamisesta.
+
+## Sovelluksen asennus
+
+Asenna `flask`-kirjasto:
+
+```bash
+$ pip install flask
+
+Luo tietokannan
+
+$ sqlite3 database.db < schema.sql
+
+Voit käynnistää sovelluksen näin
+
+$ flask run
+
+
