@@ -21,15 +21,28 @@ Asenna `flask`-kirjasto:
 $ pip install flask
 ` ``` `
 
-Luo tietokannan
+Tietokannan alustaminen
 
 ```bash
-$ sqlite3 database.db < schema.sql
+$ python init_db.py
 
 ` ``` `
 Voit käynnistää sovelluksen näin
 
 ```bash
-$ flask run
+$ python -m flask run
 
+Testaaminen
+
+    Avaa sovellus selaimessa. Huomaat, että etusivu on tyhjä, koska et ole kirjautunut sisään.
+
+    Mene Rekisteröidy-sivulle ja luo uusi käyttäjätunnus.
+
+    Kirjaudu sisään juuri luomillasi tunnuksilla.
+
+    Lisää uusi tilaus klikkaamalla + Lisää uusi tilaus.
+
+    Kokeile muokata tai poistaa lisäämääsi tilausta etusivun taulukosta.
+
+    Testaa hakutoimintoa kirjoittamalla osa osoitteesta hakukenttään.
 

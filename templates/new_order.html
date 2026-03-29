@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>Lisää uusi tilaus</h2>
+
+<form action="/new_order" method="POST">
+    <label>Osoite:</label>
+    <input type="text" name="address" required>
+
+    <label>Ikkunoiden määrä:</label>
+    <input type="number" name="window_count" required>
+
+    <label>Hinta (€):</label>
+    <input type="number" name="price" required>
+
+    <label>Pesuajankohta:</label>
+    <input type="date" name="wash_date" required>
+
+    <label>Yhteystiedot:</label>
+    <textarea name="contact_info" placeholder="Asiakkaan puhelin tai sähköposti" required></textarea>
+
+    <button type="submit">Tallenna tilaus</button>
+</form>
+
+<p><a href="/">Peruuta ja palaa etusivulle</a></p>
+{% endblock %}

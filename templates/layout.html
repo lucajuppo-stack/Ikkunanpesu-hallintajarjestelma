@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ikkunanpesun hallinta</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.min.css">
+</head>
+<body>
+    <nav>
+        <a href="/">Etusivu</a> | 
+        {% if session.user_id %}
+            <strong>Kirjautuneena: {{ session.username }}</strong> |
+            <a href="/logout">Kirjaudu ulos</a>
+        {% else %}
+            <a href="/login">Kirjaudu sisään</a> | 
+            <a href="/register">Rekisteröidy</a>
+        {% endif %}
+    </nav>
+    <hr>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

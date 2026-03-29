@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>Ikkunanpesutilaukset</h2>
+
+<form action="/" method="GET" style="margin-bottom: 20px;">
+    <input type="text" name="search" placeholder="Etsi osoitteella..." value="{{ request.args.get('search', '') }}">
+    <button type="submit">Hae</button>
+    <a href="/">Tyhjennä haku</a>
+</form>
+
+{% if session.user_id %}
+    <p><a href="/new_order"><strong>+ Lisää uusi tilaus</strong></a></p>
+{% endif %}
+
+<table>
+    <thead>
+        <tr>
+            <th>Pesuajankohta</th>
+            <th>Osoite</th>
+            <th>Ikkunat</th>
+            <th>Hinta</th>
+            <th>Tila</th>
+            <th>Toiminnot</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order.wash_date }}</td>
+            <td>{{ order.address }}</td>
+            <td>{{ order.window_count }} kpl</td>
+            <td>{{ order.price }} €</td>
+            <td>{{ order.status }}</td>
+            <td>
+                <a href="/edit/{{ order.id }}">Muokkaa</a>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="6">Ei löytyneitä tilauksia.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>Muokkaa tilausta</h2>
+
+<form action="/edit/{{ order.id }}" method="POST">
+    <label>Osoite:</label>
+    <input type="text" name="address" value="{{ order.address }}" required>
+
+    <label>Ikkunoiden määrä:</label>
+    <input type="number" name="window_count" value="{{ order.window_count }}" required>
+
+    <label>Hinta (€):</label>
+    <input type="number" name="price" value="{{ order.price }}" required>
+
+    <label>Pesuajankohta:</label>
+    <input type="date" name="wash_date" value="{{ order.wash_date }}" required>
+
+    <label>Työn tila:</label>
+    <select name="status">
+        <option value="pending" {% if order.status == 'pending' %}selected{% endif %}>Odottaa</option>
+        <option value="done" {% if order.status == 'done' %}selected{% endif %}>Tehty</option>
+        <option value="invoiced" {% if order.status == 'invoiced' %}selected{% endif %}>Laskutettu</option>
+        <option value="paid" {% if order.status == 'paid' %}selected{% endif %}>Maksettu</option>
+    </select>
+
+    <label>Yhteystiedot:</label>
+    <textarea name="contact_info" required>{{ order.contact_info }}</textarea>
+
+    <button type="submit">Tallenna muutokset</button>
+</form>
+
+<hr>
+
+<form action="/delete/{{ order.id }}" method="POST" onsubmit="return confirm('Haluatko varmasti poistaa tämän tilauksen?')">
+    <button type="submit" style="background-color: #ff4444; border-color: #ff4444;">Poista tilaus</button>
+</form>
+
+<p><a href="/">Peruuta</a></p>
+{% endblock %}
