@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, session
+from werkzeug.security import generate_password_hash, check_password_hash
 from db import get_db, close_db
 
 app = Flask(__name__)
@@ -33,7 +34,7 @@ def login():
             (username,)
         ).fetchone()
 
-        if user and user["password"] == password:
+        if user and check_password_hash(user["password"], password):
             session["user_id"] = user["id"]
             session["username"] = user["username"]
             return redirect("/")
@@ -70,12 +71,13 @@ def register():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
+        password_hash = generate_password_hash(password)
         db = get_db()
         
         try:
             db.execute(
                 "INSERT INTO users (username, password) VALUES (?, ?)",
-                (username, password)
+                (username, password_hash)
             )
             db.commit()
             return redirect("/") 
