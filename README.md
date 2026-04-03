@@ -12,6 +12,7 @@ Sovelluksen avulla ikkunanpesuyritys voi hallinnoida ovelta ovelle tapahtuvaa my
 * Sovelluksessa on käyttäjäsivut, jotka näyttävät myyjäkohtaisia tilastoja (esim. myytyjen pesujen määrä ja kokonaisarvo) sekä listan kyseisen käyttäjän lisäämistä kohteista.
 * Käyttäjä pystyy valitsemaan tilaukselle yhden tai useamman luokittelun (esim. kohdetyyppi: omakotitalo, rivitalo tai liiketila).
 * Käyttäjä pystyy päivittämään tilauksen tilaa työn edetessä: merkinnät työn suorittamisesta, laskun lähettämisestä ja maksun vastaanottamisesta.
+* Käyttäjä pystyy kommentoimaan toisten käyttäjien luomiin tilauksiin.
 
 ## Sovelluksen asennus
 
@@ -30,7 +31,6 @@ python init_db.py
 Voit käynnistää sovelluksen näin:
 
 ```bash
-set FLASK_APP=app.py
 python -m flask run
 ```
 
@@ -47,4 +47,17 @@ Testaaminen
     Kokeile muokata tai poistaa lisäämääsi tilausta etusivun taulukosta.
 
     Testaa hakutoimintoa kirjoittamalla osa osoitteesta hakukenttään.
+
+Välipalautus 3: (Versio 2.0)
+
+    Käyttäjäsivuja voi testata luomalla useampi käyttäjä jolla kirjautua.
+
+    Näytä näkymän takana on kommenttimahdollisuudet.
+
+    Luokitteluja (Tila "Odottaa") täytyy ensin olla kohde luotu jonka jälkeen muokkaa painikkeesta voi vaihtaa tilaa.
+
+
+
+
+
 
