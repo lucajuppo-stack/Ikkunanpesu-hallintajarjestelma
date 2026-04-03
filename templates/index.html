@@ -3,8 +3,15 @@
 {% block content %}
 <h2>Ikkunanpesutilaukset</h2>
 
-<form action="/" method="GET" style="margin-bottom: 20px;">
+<form action="/" method="GET" style="margin-bottom: 20px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
     <input type="text" name="search" placeholder="Etsi osoitteella..." value="{{ request.args.get('search', '') }}">
+    <select name="status">
+        <option value="all" {% if request.args.get('status', '') in ['', 'all'] %}selected{% endif %}>Kaikki tilat</option>
+        <option value="pending" {% if request.args.get('status', '') == 'pending' %}selected{% endif %}>Odottaa</option>
+        <option value="done" {% if request.args.get('status', '') == 'done' %}selected{% endif %}>Pesty</option>
+        <option value="invoiced" {% if request.args.get('status', '') == 'invoiced' %}selected{% endif %}>Laskutettu</option>
+        <option value="paid" {% if request.args.get('status', '') == 'paid' %}selected{% endif %}>Maksettu</option>
+    </select>
     <button type="submit">Hae</button>
     <a href="/">Tyhjennä haku</a>
 </form>
@@ -18,9 +25,11 @@
         <tr>
             <th>Pesuajankohta</th>
             <th>Osoite</th>
+            <th>Luokat</th>
             <th>Ikkunat</th>
             <th>Hinta</th>
             <th>Tila</th>
+            <th>Tekijä</th>
             <th>Toiminnot</th>
         </tr>
     </thead>
@@ -29,11 +38,16 @@
         <tr>
             <td>{{ order.wash_date }}</td>
             <td>{{ order.address }}</td>
+            <td>{{ order.categories | join(", ") }}</td>
             <td>{{ order.window_count }} kpl</td>
             <td>{{ order.price }} €</td>
-            <td>{{ order.status }}</td>
+            <td>{{ status_label(order.status) }}</td>
+            <td><a href="/user/{{ order.author }}">{{ order.author }}</a></td>
             <td>
-                <a href="/edit/{{ order.id }}">Muokkaa</a>
+                <a href="/order/{{ order.id }}">Näytä</a>
+                {% if order.user_id == session.user_id %}
+                    | <a href="/edit/{{ order.id }}">Muokkaa</a>
+                {% endif %}
             </td>
         </tr>
         {% else %}

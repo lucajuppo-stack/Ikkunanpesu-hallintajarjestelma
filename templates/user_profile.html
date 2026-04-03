@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>Käyttäjä {{ user.username }}</h2>
+
+<p>Lisätyt tilaukset: {{ summary.total_orders }}</p>
+<p>Yhteishinta: {{ summary.total_price }} €</p>
+
+{% if stats %}
+    <h3>Tilausten tilastot</h3>
+    <ul>
+        {% for stat in stats %}
+            <li>{{ status_label(stat.status) }}: {{ stat.count }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% if category_stats %}
+    <h3>Luokittelu</h3>
+    <ul>
+        {% for cat in category_stats %}
+            <li>{{ cat.name }}: {{ cat.count }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<h3>Lisätyt tilaukset</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Pesuajankohta</th>
+            <th>Osoite</th>
+            <th>Luokat</th>
+            <th>Hinta</th>
+            <th>Tila</th>
+            <th>Toiminnot</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+            <tr>
+                <td>{{ order.wash_date }}</td>
+                <td>{{ order.address }}</td>
+                <td>{{ order.categories | join(", ") }}</td>
+                <td>{{ order.price }} €</td>
+                <td>{{ status_label(order.status) }}</td>
+                <td><a href="/order/{{ order.id }}">Näytä</a></td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Käyttäjällä ei ole tilauksia.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<p><a href="/">Takaisin etusivulle</a></p>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>Tilaus {{ order.id }}</h2>
+
+<p><strong>Osoite:</strong> {{ order.address }}</p>
+<p><strong>Pesuajankohta:</strong> {{ order.wash_date }}</p>
+<p><strong>Ikkunoita:</strong> {{ order.window_count }} kpl</p>
+<p><strong>Hinta:</strong> {{ order.price }} €</p>
+<p><strong>Tilanne:</strong> {{ status_label(order.status) }}</p>
+<p><strong>Yhteystiedot:</strong> {{ order.contact_info }}</p>
+<p><strong>Tekijä:</strong> <a href="/user/{{ order.author }}">{{ order.author }}</a></p>
+<p><strong>Luokat:</strong> {{ categories | join(", ") }}</p>
+
+<hr>
+
+{% if error %}
+    <p style="color: red;">{{ error }}</p>
+{% endif %}
+
+{% if session.user_id %}
+    {% if session.user_id != order.user_id %}
+        <form action="/order/{{ order.id }}" method="POST">
+            <label>Kirjoita lisätietoa tilaukseen:</label>
+            <textarea name="comment_text" required></textarea>
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+            <button type="submit">Lähetä kommentti</button>
+        </form>
+    {% else %}
+        <p>Et voi kommentoida omaa tilaustasi.</p>
+    {% endif %}
+{% else %}
+    <p><a href="/login">Kirjaudu sisään</a> kommentoidaksesi tilausta.</p>
+{% endif %}
+
+<hr>
+
+<h3>Kommentit</h3>
+{% if comments %}
+    <ul>
+        {% for comment in comments %}
+            <li>
+                <strong>{{ comment.username }}</strong> ({{ comment.created_at }}):<br>
+                {{ comment.comment_text }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Ei vielä kommentteja.</p>
+{% endif %}
+
+<p><a href="/">Takaisin etusivulle</a></p>
+{% endblock %}

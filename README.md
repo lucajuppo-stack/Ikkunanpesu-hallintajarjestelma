@@ -18,19 +18,21 @@ Sovelluksen avulla ikkunanpesuyritys voi hallinnoida ovelta ovelle tapahtuvaa my
 Asenna `flask`-kirjasto:
 
 ```bash
-$ pip install flask
-` ``` `
+pip install flask
+```
 
-Tietokannan alustaminen
-
-```bash
-$ python init_db.py
-
-` ``` `
-Voit käynnistää sovelluksen näin
+Tietokannan alustaminen:
 
 ```bash
-$ python -m flask run
+python init_db.py
+```
+
+Voit käynnistää sovelluksen näin:
+
+```bash
+set FLASK_APP=app.py
+python -m flask run
+```
 
 Testaaminen
 

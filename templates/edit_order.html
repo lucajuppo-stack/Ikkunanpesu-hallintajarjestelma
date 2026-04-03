@@ -19,7 +19,7 @@
     <label>Työn tila:</label>
     <select name="status">
         <option value="pending" {% if order.status == 'pending' %}selected{% endif %}>Odottaa</option>
-        <option value="done" {% if order.status == 'done' %}selected{% endif %}>Tehty</option>
+        <option value="done" {% if order.status == 'done' %}selected{% endif %}>Pesty</option>
         <option value="invoiced" {% if order.status == 'invoiced' %}selected{% endif %}>Laskutettu</option>
         <option value="paid" {% if order.status == 'paid' %}selected{% endif %}>Maksettu</option>
     </select>
@@ -27,12 +27,26 @@
     <label>Yhteystiedot:</label>
     <textarea name="contact_info" required>{{ order.contact_info }}</textarea>
 
+    <label>Tyyppi:</label>
+    {% if categories %}
+        <select name="category" required>
+            <option value="" disabled {% if not selected_categories %}selected{% endif %}>Valitse tyyppi</option>
+            {% for category in categories %}
+                <option value="{{ category.id }}" {% if category.id in selected_categories %}selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+        </select>
+    {% else %}
+        <p>Ei tyyppiä. Lisää tyyppi tietokantaan ensin.</p>
+    {% endif %}
+
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     <button type="submit">Tallenna muutokset</button>
 </form>
 
 <hr>
 
-<form action="/delete/{{ order.id }}" method="POST" onsubmit="return confirm('Haluatko varmasti poistaa tämän tilauksen?')">
+<form action="/delete/{{ order.id }}" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     <button type="submit" style="background-color: #ff4444; border-color: #ff4444;">Poista tilaus</button>
 </form>
 
