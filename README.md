@@ -16,23 +16,51 @@ Sovelluksen avulla ikkunanpesuyritys voi hallinnoida ovelta ovelle tapahtuvaa my
 
 ## Sovelluksen asennus
 
-Asenna `flask`-kirjasto:
+### 1. Virtuaalisen ympäristön luominen ja aktivoiminen
+
+Luo virtuaalinen ympäristö:
 
 ```bash
-pip install flask
+python -m venv venv
 ```
 
-Tietokannan alustaminen:
+Aktivoi virtuaalinen ympäristö:
+
+**Linux/macOS:**
+```bash
+source venv/bin/activate
+```
+
+**Windows:**
+```bash
+venv\Scripts\activate
+```
+
+### 2. Riippuvuuksien asentaminen
+
+Asenna kaikki vaadittavat kirjastot:
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Tietokannan alustaminen
 
 ```bash
 python init_db.py
 ```
 
-Voit käynnistää sovelluksen näin:
+### 4. Sovelluksen käynnistäminen
 
 ```bash
 python -m flask run
 ```
+
+Sovellus aukeaa osoitteessa `http://127.0.0.1:5000`
+
+### Huomio: Salaisuuden hallinta
+
+Sovellus käyttää `.env`-tiedostoa salaisuuksien hallintaan. Tämä tiedosto on otettu `.gitignore`-tiedostoon, eikä se lähde versionhallintaan. Sovellus lataa salaisuuksia automaattisesti `.env`-tiedostosta käynnistyksen yhteydessä.
 
 Testaaminen
 
